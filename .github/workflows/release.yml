@@ -27,8 +27,8 @@ jobs:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #       run: npx semantic-release
 
-  release:
-    name: Release
+  release-win:
+    name: Release win
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -45,3 +45,23 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run publish-win-app
+
+  release-linux:
+    name: Release win
+    runs-on: ubuntu-latest
+    needs: [release-win]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: npm run build
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run publish-linux-app

@@ -32,5 +32,5 @@
 		"runAfterFinish": true
 	},
 	"files": ["main", "out"],
-	"publish": [{ "provider": "github", "repo": "super-resolution", "owner": "UrijHoruzij", "token": "${GH_TOKEN}" }]
+	"publish": [{ "provider": "github", "repo": "super-resolution", "owner": "UrijHoruzij" }]
 }

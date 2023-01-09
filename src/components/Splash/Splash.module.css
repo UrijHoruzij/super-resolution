@@ -1,0 +1,72 @@
+.splash {
+	display: grid;
+	grid-template-columns: 320px 430px;
+	grid-template-rows: 1fr;
+}
+.wrapper {
+	position: relative;
+	padding: 32px 24px;
+	background-color: var(--black);
+	color: var(--white);
+}
+.logo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 16px;
+	color: var(--accent);
+	font-size: 20px;
+	font-weight: 500;
+}
+.copyright {
+	font-size: 14px;
+	margin-top: 16px;
+}
+.loading {
+	font-size: 14px;
+	margin-top: 16px;
+	display: flex;
+	align-items: flex-end;
+}
+.dots {
+	margin-left: 4px;
+	display: flex;
+	align-items: center;
+}
+.dot {
+	width: 3px;
+	height: 3px;
+	border-radius: 2px;
+	background-color: var(--white);
+	animation: Loading 1s infinite;
+}
+.dot:nth-child(1) {
+	margin-right: 3px;
+	animation-delay: 0.33s;
+}
+.dot:nth-child(2) {
+	animation-delay: 0.66s;
+}
+.dot:nth-child(3) {
+	margin-left: 3px;
+	animation-delay: 0.99s;
+}
+@keyframes Loading {
+	0% {
+		opacity: 100%;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 100%;
+	}
+}
+
+.version {
+	position: fixed;
+	bottom: 32px;
+	left: 24px;
+	font-size: 14px;
+	margin-top: 16px;
+}

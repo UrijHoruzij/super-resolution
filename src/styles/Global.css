@@ -1,0 +1,27 @@
+:root {
+	--frame: #1b201e;
+	--black: #171918;
+	--white: #ffffff;
+	--grey: #999da0;
+	--border: #393b3a;
+	--hover: #1f2220;
+	--accent: #62c089;
+}
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Segoe UI', sans-serif;
+	color: var(--white);
+	overflow: hidden;
+}
+a {
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--white);
+}

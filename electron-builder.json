@@ -1,0 +1,40 @@
+{
+	"productName": "Super resolution",
+	"appId": "org.upscayl.superresolution",
+	"artifactName": "${name}-${version}-${os}.${ext}",
+	"asar": true,
+	"extraFiles": [
+		{
+			"from": "resources/${os}/bin",
+			"to": "resources/bin",
+			"filter": ["**/*"]
+		},
+		{
+			"from": "resources/models",
+			"to": "resources/models",
+			"filter": ["**/*"]
+		}
+	],
+
+	"linux": {
+		"target": ["deb", "rpm"],
+		"maintainer": "Urij Horuzij <urijhoruzij@gmail.com>",
+		"category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
+		"synopsis": "AI Image Upscaler",
+		"description": "Free and open source AI image upscaler for Linux. It uses the latest AI technology to upscale images to higher resolutions."
+	},
+	"win": {
+		"target": ["nsis"]
+	},
+	"nsis": {
+		"allowToChangeInstallationDirectory": true,
+		"oneClick": false,
+		"runAfterFinish": true
+	},
+	"files": ["main", "out"],
+	"publish": "github",
+	"provider": "github",
+	"repo": "super-resolution",
+	"owner": "UrijHoruzij",
+	"token": "${GH_TOKEN}"
+}

@@ -1,0 +1,31 @@
+{
+	"splash": {
+		"author": "Urij Horuzij",
+		"title": "Super resolution",
+		"loading": "Loading"
+	},
+	"frame": {
+		"minimize": "",
+		"maximize": "",
+		"unmaximize": "",
+		"close": "Close"
+	},
+	"home": {
+		"name": "Super resolution",
+		"title": "Welcome"
+	},
+	"upscayl": {
+		"title": "Super resolution",
+		"openFile": "Open file",
+		"openDirectory": "Open directory",
+		"upscayle": "Upscayle"
+	},
+	"settings": {
+		"title": "Settings",
+		"changeLang": "Change language:",
+		"changeDirectory": "Select the default folder:"
+	},
+	"help": {
+		"title": "Help"
+	}
+}

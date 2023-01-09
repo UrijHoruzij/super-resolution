@@ -1,0 +1,7 @@
+.layout {
+	display: grid;
+	grid-template-columns: 288px 4fr;
+	grid-template-rows: 32px 120px 1fr;
+	background-color: var(--black);
+	overflow: hidden;
+}

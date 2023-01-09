@@ -1,0 +1,45 @@
+{
+	"private": true,
+	"name": "super-resolution",
+	"description": "Free and open source AI image upscaler. It uses the latest AI technology to upscale images to higher resolutions.",
+	"version": "1.0.0",
+	"author": "Urij Horuzij",
+	"homepage": "https://github.com/UrijHoruzij/super-resolution",
+	"license": "MIT",
+	"main": "main/background.js",
+	"scripts": {
+		"dev": "next dev",
+		"electron": "electron .",
+		"build": "next build && next export",
+		"dist": "npm run build && electron-builder ",
+		"dist:deb": "electron-builder build -l deb",
+		"dist:rpm": "electron-builder build -l rpm",
+		"dist:dmg": "electron-builder build -m dmg",
+		"dist:pkg": "electron-builder build -m pkg",
+		"dist:msi": "electron-builder build -w nsis",
+		"publish-app": "electron-builder -wl --publish always",
+		"publish-linux-app": "electron-builder -l --publish always",
+		"publish-win-app": "electron-builder -w --publish always",
+		"publish-mac-app": "electron-builder -m --publish always",
+		"postinstall": "electron-builder install-app-deps",
+		"release": "electron-builder -w"
+	},
+	"dependencies": {
+		"classnames": "^2.3.2",
+		"electron-is-dev": "^2.0.0",
+		"electron-reload": "^2.0.0-alpha.1",
+		"electron-serve": "^1.1.0",
+		"electron-settings": "^4.0.2",
+		"electron-store": "^8.1.0",
+		"electron-updater": "^5.2.1",
+		"ui-forest": "^1.10.2"
+	},
+	"devDependencies": {
+		"electron": "^20.1.0",
+		"electron-builder": "^23.3.3",
+		"next": "^12.2.5",
+		"next-transpile-modules": "^9.0.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	}
+}

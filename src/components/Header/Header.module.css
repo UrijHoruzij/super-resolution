@@ -1,0 +1,17 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid var(--border);
+	height: 120px;
+	grid-column: 2 / 3;
+	grid-row: 2 / 3;
+}
+.header__title {
+	font-family: 'PT Astra Sans';
+	font-size: 48px;
+	font-weight: 400;
+	color: var(--white);
+	line-height: 150%;
+	margin-left: 32px;
+}

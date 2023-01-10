@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.2...v1.1.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* edit release.yml ([e814c5c](https://github.com/UrijHoruzij/super-resolution/commit/e814c5c3f3023f8dfe0485a26f52e1a62e341d4d))
+
 ## [1.1.2](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.1...v1.1.2) (2023-01-10)
 
 

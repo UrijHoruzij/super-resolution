@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.3...v1.1.4) (2023-01-10)
+
+
+### Bug Fixes
+
+* edit autoUpdater ([5c3b4b9](https://github.com/UrijHoruzij/super-resolution/commit/5c3b4b9893d311512f25a64215a40c1128d8072c))
+
 ## [1.1.3](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.2...v1.1.3) (2023-01-10)
 
 

@@ -20,8 +20,6 @@ jobs:
         run: yarn install
       - name: Install semantic-release extra plugins
         run: yarn add -D @semantic-release/changelog @semantic-release/git
-      - name: Build
-        run: npm run build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,7 +28,7 @@ jobs:
   release-windows:
     name: Release Windows
     runs-on: windows-latest
-    needs: [semantic, release-linux]
+    needs: [semantic]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

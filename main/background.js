@@ -57,12 +57,15 @@ app.on('ready', async () => {
 		},
 		true,
 	);
+	splashWindow.on('ready-to-show', () => {
+		splashWindow.show();
+	});
 	if (isDev) {
 		await splashWindow.loadURL(`http://localhost:3000/splash`);
 	} else {
 		await splashWindow.loadURL('app://./splash.html');
 	}
-	splashWindow.show();
+
 	mainWindow = createWindow('main', {
 		// icon: join(__dirname, '../resources/icon.png'),
 		width: 1000,
@@ -77,25 +80,28 @@ app.on('ready', async () => {
 	});
 	// mainWindow.webContents.openDevTools();
 	mainWindow.removeMenu();
+	mainWindow.on('ready-to-show', () => {
+		setTimeout(() => {
+			splashWindow.close();
+			mainWindow.show();
+		}, 1000);
+	});
 	if (isDev) {
 		await mainWindow.loadURL(`http://localhost:3000/`);
 	} else {
 		await mainWindow.loadURL('app://./index.html');
 	}
 
-	setTimeout(() => {
-		splashWindow.close();
-		mainWindow.show();
-	}, 3000);
-
 	ipcMain.on('upscayl', async () => {
 		if (!flag && files.length > 0 && saveDirectory.length > 0) {
 			flag = true;
 			await upscayl(files[0], saveDirectory[0], mainWindow);
+			const fileName = path.parse(files[0]).name;
+			const fileExt = path.parse(files[0]).ext;
+			const outFile = `${saveDirectory[0]}/${fileName}_upscayl${fileExt}`;
 			flag = false;
 		}
 	});
-
 	ipcMain.on('window-min', () => {
 		mainWindow.minimize();
 	});
@@ -112,7 +118,6 @@ app.on('ready', async () => {
 			return false;
 		}
 	});
-
 	ipcMain.on('window-close', () => {
 		mainWindow.close();
 	});
@@ -123,7 +128,8 @@ app.on('ready', async () => {
 			properties: ['openFile', 'multiSelections'],
 		});
 		files = [...filePaths];
-		e.reply('open-files', filePaths);
+		const filesPathsPosix = filePaths.map((file) => file.split(path.sep).join(path.posix.sep));
+		e.reply('open-files', filesPathsPosix);
 	});
 	ipcMain.on('open-directory', async () => {
 		const { filePaths } = await dialog.showOpenDialog({

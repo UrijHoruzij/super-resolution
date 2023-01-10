@@ -13,7 +13,7 @@ const upscayl = (inputDir, outputDir, mainWindow) => {
 	} else {
 		const fileName = path.parse(inputDir).name;
 		const fileExt = path.parse(inputDir).ext;
-		outFile = outputDir + '/' + fileName + '_upscayl' + fileExt;
+		outFile = `${outputDir}/${fileName}_upscayl${fileExt}`;
 	}
 	const upscayl = spawn(
 		execPath('realesrgan'),

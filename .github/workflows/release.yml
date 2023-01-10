@@ -6,30 +6,31 @@ on:
       - master
 
 jobs:
-  # semantic:
-  #   name: Semantic
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18.x
-  #     - name: Install dependencies
-  #       run: yarn install
-  #     - name: Install semantic-release extra plugins
-  #       run: yarn add -D @semantic-release/changelog @semantic-release/git
-  #     - name: Build
-  #       run: npm run build
-  #     - name: Release
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       run: npx semantic-release
+  semantic:
+    name: Semantic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Install semantic-release extra plugins
+        run: yarn add -D @semantic-release/changelog @semantic-release/git
+      - name: Build
+        run: npm run build
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
 
-  release-win:
-    name: Release win
+  release-windows:
+    name: Release Windows
     runs-on: windows-latest
+    needs: [semantic, release-linux]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -47,9 +48,9 @@ jobs:
         run: npm run publish-win-app
 
   release-linux:
-    name: Release win
+    name: Release Linux
     runs-on: ubuntu-latest
-    needs: [release-win]
+    needs: [semantic]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

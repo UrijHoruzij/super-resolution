@@ -20,10 +20,7 @@ function Settings() {
 	}, [lang]);
 	return (
 		<>
-			<Head>
-				<title>Super resolution</title>
-				<link rel="shortcut icon" href="resources/icon.ico" type="image/x-icon" />
-			</Head>
+			<Head />
 			<Header title={messages.settings.title} />
 			<Sidebar />
 			<Main>

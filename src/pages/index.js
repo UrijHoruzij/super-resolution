@@ -12,10 +12,7 @@ const Home = () => {
 	}, []);
 	return (
 		<>
-			<Head>
-				<title>{messages.home.title}</title>
-				<link rel="shortcut icon" href="resources/icon.ico" type="image/x-icon" />
-			</Head>
+			<Head />
 			<Header title={messages.home.title} />
 			<Sidebar />
 			<Main></Main>

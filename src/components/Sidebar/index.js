@@ -6,6 +6,11 @@ import { useRouter } from 'next/router';
 import { LangContext } from '../';
 import styles from './Sidebar.module.css';
 
+import logo from '../../../public/images/logo-big.svg';
+import upscaleImage from '../../../public/images/image.svg';
+import settingsImage from '../../../public/images/settings.svg';
+import helpImage from '../../../public/images/help.svg';
+
 const Sidebar = () => {
 	const [messages] = useContext(LangContext);
 	const router = useRouter();
@@ -13,7 +18,7 @@ const Sidebar = () => {
 		<div className={styles.sidebar}>
 			<div className={styles.sidebar__logo}>
 				<div className={styles.sidebar__item_image}>
-					<Image layout="fixed" src="/images/logo-big.svg" alt="logo" width={44} height={44} />
+					<Image src={logo} alt={messages.home.name} width={44} height={44} />
 				</div>
 				<div className={styles.sidebar__name}>{messages.home.name}</div>
 			</div>
@@ -24,22 +29,20 @@ const Sidebar = () => {
 							[styles.sidebar__itemActiv]: router.pathname == '/superResolution',
 						})}>
 						<Link href="/superResolution">
-							<a>
-								<div className={styles.sidebar__item_image}>
-									<Image layout="fixed" src="/images/image.svg" alt="Picture of the author" width={24} height={24} />
-								</div>
-								{messages.upscayl.title}
-							</a>
+							<div className={styles.sidebar__item_image}>
+								<Image src={upscaleImage} alt={messages.upscayl.title} width={24} height={24} />
+							</div>
+							{messages.upscayl.title}
 						</Link>
 					</li>
 					{/* <li className={styles.sidebar__item}>
 						<Link href="/">
-							<a>Испраление</a>
+							Испраление
 						</Link>
 					</li>
 					<li className={styles.sidebar__item}>
 						<Link href="/">
-							<a>Колоризация</a>
+							Колоризация
 						</Link>
 					</li> */}
 				</ul>
@@ -50,19 +53,16 @@ const Sidebar = () => {
 						[styles.sidebar__itemActiv]: router.pathname == '/settings',
 					})}>
 					<Link href="/settings">
-						<a>
-							<div className={styles.sidebar__item_image}>
-								<Image
-									className={styles.sidebar__item_image}
-									layout="fixed"
-									src="/images/settings.svg"
-									alt="Picture of the author"
-									width={24}
-									height={24}
-								/>
-							</div>
-							{messages.settings.title}
-						</a>
+						<div className={styles.sidebar__item_image}>
+							<Image
+								className={styles.sidebar__item_image}
+								src={settingsImage}
+								alt={messages.settings.title}
+								width={24}
+								height={24}
+							/>
+						</div>
+						{messages.settings.title}
 					</Link>
 				</li>
 				<li
@@ -70,19 +70,16 @@ const Sidebar = () => {
 						[styles.sidebar__itemActiv]: router.pathname == '/help',
 					})}>
 					<Link href="/help">
-						<a>
-							<div className={styles.sidebar__item_image}>
-								<Image
-									className={styles.sidebar__item_image}
-									layout="fixed"
-									src="/images/help.svg"
-									alt="Picture of the author"
-									width={24}
-									height={24}
-								/>
-							</div>
-							{messages.help.title}
-						</a>
+						<div className={styles.sidebar__item_image}>
+							<Image
+								className={styles.sidebar__item_image}
+								src={helpImage}
+								alt={messages.help.title}
+								width={24}
+								height={24}
+							/>
+						</div>
+						{messages.help.title}
 					</Link>
 				</li>
 			</ul>

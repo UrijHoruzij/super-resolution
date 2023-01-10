@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.1...v1.1.2) (2023-01-10)
+
+
+### Bug Fixes
+
+* edit workflows ([f65ccf7](https://github.com/UrijHoruzij/super-resolution/commit/f65ccf788eb47572bb9937fc3cc605b72453c719))
+
 ## [1.1.1](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.0...v1.1.1) (2023-01-10)
 
 

@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.5...v1.2.0) (2023-01-11)
+
+
+### Features
+
+* add events autoUpdater ([4525bb0](https://github.com/UrijHoruzij/super-resolution/commit/4525bb0540f9fe5ead52cb2be04f639b4cd4163a))
+
 ## [1.1.5](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.4...v1.1.5) (2023-01-11)
 
 

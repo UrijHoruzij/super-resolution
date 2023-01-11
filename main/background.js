@@ -15,15 +15,12 @@ if (!isDev) {
 	serve({ directory: 'out' });
 }
 
-autoUpdate();
-
 let mainWindow;
 let splashWindow;
 let files = [];
 let saveDirectory = [];
 let flag = false;
 app.on('ready', async () => {
-	autoUpdater.checkForUpdatesAndNotify();
 	const local = await settings.get('local.name');
 	if (!!!local) {
 		await settings.set('local', {
@@ -91,6 +88,8 @@ app.on('ready', async () => {
 	} else {
 		await mainWindow.loadURL('app://./index.html');
 	}
+	autoUpdate(mainWindow);
+	autoUpdater.checkForUpdatesAndNotify();
 
 	ipcMain.on('upscayl', async () => {
 		if (!flag && files.length > 0 && saveDirectory.length > 0) {

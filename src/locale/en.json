@@ -25,7 +25,17 @@
 	"settings": {
 		"title": "Settings",
 		"changeLang": "Change language:",
-		"changeDirectory": "Select the default folder:"
+		"changeDirectory": "Select the default folder:",
+		"autoUpdater": {
+			"checkingForUpdateBtn": "Check for updates",
+			"updateBtn": "Update",
+			"checkingForUpdate": "Checking for updates",
+			"updateAvailable": "Updates found",
+			"updateNotAvailable": "No updates found",
+			"updateDownloaded": "Updates downloaded",
+			"error": "Update error",
+			"downloadProgress": "Downloading"
+		}
 	},
 	"help": {
 		"title": "Help"

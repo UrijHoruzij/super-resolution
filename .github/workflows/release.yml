@@ -1,7 +1,10 @@
 name: Release
 
-on: workflow_dispatch
-
+on:
+  workflow_run:
+    workflows: ['Semantic']
+    types:
+      - completed
 jobs:
   release-windows:
     name: Release Windows

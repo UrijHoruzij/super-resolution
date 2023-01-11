@@ -25,7 +25,17 @@
 	"settings": {
 		"title": "Настройки",
 		"changeLang": "Выбрать язык:",
-		"changeDirectory": "Выбрать папку по умолчанию:"
+		"changeDirectory": "Выбрать папку по умолчанию:",
+		"autoUpdater": {
+			"checkingForUpdateBtn": "Проверить наличия обновления",
+			"updateBtn": "Обновить",
+			"checkingForUpdate": "Проверка наличия обновления",
+			"updateAvailable": "Обновления найдены",
+			"updateNotAvailable": "Обновления не найдены",
+			"updateDownloaded": "Обновления загружены",
+			"error": "Ошибка обновления",
+			"downloadProgress": "Скачивание"
+		}
 	},
 	"help": {
 		"title": "Помощь"

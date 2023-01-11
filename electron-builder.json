@@ -29,7 +29,8 @@
 	"nsis": {
 		"allowToChangeInstallationDirectory": true,
 		"oneClick": false,
-		"runAfterFinish": true
+		"runAfterFinish": true,
+		"perMachine": true
 	},
 	"files": ["main", "out"],
 	"publish": [{ "provider": "github", "repo": "super-resolution", "owner": "UrijHoruzij" }]

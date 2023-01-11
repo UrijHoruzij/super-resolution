@@ -28,7 +28,7 @@ const Splash = (props) => {
 				</div>
 				<div className={styles.version}>v{version}</div>
 			</div>
-			<Image className={styles.splashImage} src={splashImage} alt="splash" />
+			<Image className={styles.splashImage} priority src={splashImage} alt="splash" />
 		</div>
 	);
 };

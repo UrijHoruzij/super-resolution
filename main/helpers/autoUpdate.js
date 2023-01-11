@@ -1,4 +1,8 @@
-const autoUpdate = (autoUpdater) => {
+const { autoUpdater } = require('electron-updater');
+const { dialog } = require('electron');
+
+const autoUpdate = () => {
+	autoUpdater.on('checking-for-update', () => {});
 	autoUpdater.on('update-available', ({ releaseNotes, releaseName }) => {
 		const dialogOpts = {
 			type: 'info',
@@ -9,7 +13,7 @@ const autoUpdate = (autoUpdater) => {
 		};
 		dialog.showMessageBox(dialogOpts).then((returnValue) => {});
 	});
-
+	autoUpdater.on('update-not-available', () => {});
 	autoUpdater.on('update-downloaded', (event) => {
 		const dialogOpts = {
 			type: 'info',

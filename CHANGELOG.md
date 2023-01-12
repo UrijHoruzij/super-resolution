@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.2.0...v1.3.0) (2023-01-12)
+
+
+### Features
+
+* add slider before-after ([4333f81](https://github.com/UrijHoruzij/super-resolution/commit/4333f81ee17a309e0156a72fe50c23b31c957416))
+
 # [1.2.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.1.5...v1.2.0) (2023-01-11)
 
 

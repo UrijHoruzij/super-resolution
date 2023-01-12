@@ -1,6 +1,7 @@
 {
 	"productName": "Super resolution",
 	"appId": "org.upscayl.superresolution",
+	"copyright": "Copyright © 2023 ${author}",
 	"artifactName": "${name}-${version}-${os}.${ext}",
 	"asar": true,
 	"extraFiles": [

@@ -4648,10 +4648,10 @@ typescript@^4.6.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
   integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
 
-ui-forest@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/ui-forest/-/ui-forest-1.11.1.tgz#663390935286d7f52c60d3250c9ac7b6711b753f"
-  integrity sha512-37nZBwMKwSsuh3t85oJexG8tv6G7XQfIrHL7IxKm1ty2/yfPY8PC1JcUpw/g5TquhDVWxdJNmd9awHm747roEA==
+ui-forest@^1.11.4:
+  version "1.11.4"
+  resolved "https://registry.yarnpkg.com/ui-forest/-/ui-forest-1.11.4.tgz#59572aef7386503740645f83a1fab3d297323d5e"
+  integrity sha512-6mik6+hZJQoSvkhlDOPMDYtKMwNXAsTunr6Mlr97q8UscjT32hdTKqXtXgUXlehrDA39nE79F9vwhnD4TjPzow==
   dependencies:
     classnames "^2.3.1"
     normalize.css "^8.0.1"

@@ -9,7 +9,7 @@ const Splash = (props) => {
 		<div className={styles.splash}>
 			<div className={styles.wrapper}>
 				<div className={styles.logo}>
-					<Image src={logo} alt={messages.splash.title} width={72} height={72} />
+					<Image src={logo} priority alt={messages.splash.title} width={72} height={72} />
 					<div className={styles.name}>{messages.splash.title}</div>
 				</div>
 				<div className={styles.copyright}>

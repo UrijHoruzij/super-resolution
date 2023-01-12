@@ -41,20 +41,21 @@ app.on('ready', async () => {
 	splashWindow = createWindow(
 		'splash',
 		{
+			icon: path.join(__dirname, '../resources/icon.png'),
 			width: 750,
 			height: 500,
 			show: false,
 			center: true,
 			frame: false,
 			resizable: false,
-			title: 'Super resolution',
+			backgroundColor: '#171918',
 			webPreferences: {
 				preload: path.join(__dirname, 'preload.js'),
 			},
 		},
 		true,
 	);
-	splashWindow.on('ready-to-show', () => {
+	splashWindow.once('ready-to-show', () => {
 		splashWindow.show();
 	});
 	if (isDev) {
@@ -64,11 +65,12 @@ app.on('ready', async () => {
 	}
 
 	mainWindow = createWindow('main', {
-		// icon: join(__dirname, '../resources/icon.png'),
+		icon: path.join(__dirname, '../resources/icon.png'),
 		width: 1000,
 		height: 600,
 		show: false,
 		frame: false,
+		backgroundColor: '#171918',
 		webPreferences: {
 			nodeIntegration: true,
 			webSecurity: false,
@@ -77,11 +79,11 @@ app.on('ready', async () => {
 	});
 	// mainWindow.webContents.openDevTools();
 	mainWindow.removeMenu();
-	mainWindow.on('ready-to-show', () => {
+	mainWindow.once('ready-to-show', () => {
 		setTimeout(() => {
 			splashWindow.close();
 			mainWindow.show();
-		}, 1000);
+		}, 4000);
 	});
 	if (isDev) {
 		await mainWindow.loadURL(`http://localhost:3000/`);
@@ -92,12 +94,13 @@ app.on('ready', async () => {
 	autoUpdater.checkForUpdatesAndNotify();
 
 	ipcMain.on('upscayl', async () => {
+		const index = 0;
 		if (!flag && files.length > 0 && saveDirectory.length > 0) {
 			flag = true;
-			await upscayl(files[0], saveDirectory[0], mainWindow);
-			const fileName = path.parse(files[0]).name;
-			const fileExt = path.parse(files[0]).ext;
-			const outFile = `${saveDirectory[0]}/${fileName}_upscayl${fileExt}`;
+			for (const file of files) {
+				await upscayl(file, saveDirectory[0], mainWindow, index);
+				index++;
+			}
 			flag = false;
 		}
 	});
@@ -124,7 +127,7 @@ app.on('ready', async () => {
 	ipcMain.on('open-files', async (e) => {
 		const { filePaths } = await dialog.showOpenDialog({
 			filters: [{ name: 'Изображения', extensions: ['jpg', 'png', 'gif'] }],
-			properties: ['openFile', 'multiSelections'],
+			properties: ['openFile'],
 		});
 		files = [...filePaths];
 		const filesPathsPosix = filePaths.map((file) => file.split(path.sep).join(path.posix.sep));

@@ -6,6 +6,9 @@ import { Button } from 'ui-forest';
 function Settings() {
 	const [messages, changeLang, lang, setLang] = useContext(LangContext);
 	const [updateStatus, setUpdateStatus] = useState(null);
+	const [downloadProgress, setDownloadProgress] = useState(0);
+	const [bytesPerSecond, setbytesPerSecond] = useState(0);
+
 	const firstUpdate = useRef(true);
 	const toggleLang = (e) => {
 		changeLang(e.target.value);
@@ -45,8 +48,12 @@ function Settings() {
 		}
 	};
 	useEffect(() => {
-		window.electron.on('update-status', (event, status) => {
+		window.electron.on('update-status', ({ status, bytesPerSecond, percent, totalevent }) => {
 			setUpdateStatus(status);
+			if (status === 'download-progress') {
+				setDownloadProgress(percent);
+				setbytesPerSecond(bytesPerSecond);
+			}
 		});
 	});
 	return (
@@ -70,7 +77,14 @@ function Settings() {
 						<td></td>
 					</tr>
 					<tr>
-						<td>{updateMessages()}</td>
+						<td>
+							{updateMessages()}
+							{updateStatus === 'download-progress' ? (
+								<div>
+									{bytesPerSecond / 1024}kB/s-{downloadProgress}%
+								</div>
+							) : null}
+						</td>
 						<td>
 							{updateStatus === 'update-downloaded' ? (
 								<Button onClick={updateClick}>{messages.settings.autoUpdater.updateBtn}</Button>

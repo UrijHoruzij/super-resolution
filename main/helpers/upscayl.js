@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { modelsPath, execPath } = require('./binaries');
 
-const upscayl = (inputDir, outputDir, mainWindow) => {
+const upscayl = (inputDir, outputDir, mainWindow, index) => {
 	mainWindow.setProgressBar(0.01);
 	let failed = false;
 	let outFile = '';
@@ -29,6 +29,7 @@ const upscayl = (inputDir, outputDir, mainWindow) => {
 		if (percentString.length) {
 			let percent = parseFloat(percentString[0].slice(0, -1)) / 100;
 			mainWindow.setProgressBar(percent);
+			mainWindow.webContents.send('upscayl-progress', percent * 100);
 		}
 		if (data.includes('invalid gpu') || data.includes('failed')) {
 			mainWindow.setProgressBar(-1);
@@ -45,7 +46,11 @@ const upscayl = (inputDir, outputDir, mainWindow) => {
 	});
 	upscayl.on('close', (code) => {
 		mainWindow.setProgressBar(-1);
-		if (failed) {
+		if (!failed) {
+			const out = outFile.split(path.sep).join(path.posix.sep);
+			mainWindow.webContents.send('upscayl-done', { after: out, index });
+		} else {
+			mainWindow.webContents.send('upscayl-error');
 		}
 	});
 };

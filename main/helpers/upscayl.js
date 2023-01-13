@@ -3,17 +3,25 @@ const fs = require('fs');
 const path = require('path');
 const { modelsPath, execPath } = require('./binaries');
 
-const upscayl = (inputDir, outputDir, mainWindow, index) => {
+const upscayl = (inputDir, outputDir = null, mainWindow, index) => {
 	mainWindow.setProgressBar(0.01);
+	mainWindow.webContents.send('upscayl-progress', 1);
 	let failed = false;
 	let outFile = '';
 	let stats = fs.statSync(inputDir);
+	let outputDirectory = '';
+	if (outputDir) {
+		outputDirectory = outputDir;
+	} else {
+		outputDirectory = path.dirname(inputDir);
+	}
+	console.log(outputDirectory);
 	if (stats.isDirectory()) {
-		outFile = outputDir;
+		outFile = outputDirectory;
 	} else {
 		const fileName = path.parse(inputDir).name;
 		const fileExt = path.parse(inputDir).ext;
-		outFile = `${outputDir}/${fileName}_upscayl${fileExt}`;
+		outFile = `${outputDirectory}/${fileName}_upscayl${fileExt}`;
 	}
 	const upscayl = spawn(
 		execPath('realesrgan'),
@@ -28,18 +36,18 @@ const upscayl = (inputDir, outputDir, mainWindow, index) => {
 		const percentString = data.match(/\d+,\d+%/) || [];
 		if (percentString.length) {
 			let percent = parseFloat(percentString[0].slice(0, -1)) / 100;
-			mainWindow.setProgressBar(percent);
-			mainWindow.webContents.send('upscayl-progress', percent * 100);
+			if (percent > 0.01) {
+				mainWindow.setProgressBar(percent);
+				mainWindow.webContents.send('upscayl-progress', percent * 100);
+			}
 		}
 		if (data.includes('invalid gpu') || data.includes('failed')) {
-			mainWindow.setProgressBar(-1);
 			failed = true;
 		}
 	});
 
 	upscayl.on('error', (data) => {
 		data.toString();
-		mainWindow.setProgressBar(-1);
 		console.log('error');
 		failed = true;
 		return;

@@ -77,7 +77,7 @@ app.on('ready', async () => {
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
-	// mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 	mainWindow.removeMenu();
 	mainWindow.once('ready-to-show', () => {
 		setTimeout(() => {
@@ -95,10 +95,10 @@ app.on('ready', async () => {
 
 	ipcMain.on('upscayl', async () => {
 		const index = 0;
-		if (!flag && files.length > 0 && saveDirectory.length > 0) {
+		if (!flag && files.length > 0) {
 			flag = true;
 			for (const file of files) {
-				await upscayl(file, saveDirectory[0], mainWindow, index);
+				await upscayl(file, null, mainWindow, index);
 				index++;
 			}
 			flag = false;

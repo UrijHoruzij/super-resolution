@@ -1,14 +1,15 @@
 import { useEffect, useState, useContext } from 'react';
 import Head from 'next/head';
-import { Button, SliderBeforeAfter } from 'ui-forest';
-import { Header, Sidebar, Main, LangContext } from '../components';
+import { Button } from 'ui-forest';
+import { Header, Sidebar, Main, LangContext, Image } from '../components';
 
 const superResolutionPage = () => {
 	const [messages] = useContext(LangContext);
 	const [images, setImages] = useState([]);
-	const [progress, setProgress] = useState(0);
+	const [percent, setPercent] = useState(0);
+	const [progress, setProgress] = useState(false);
 	const superResolution = () => {
-		setProgress(1);
+		setProgress(true);
 		window.electron.send('upscayl');
 	};
 	const openFile = () => {
@@ -41,47 +42,31 @@ const superResolutionPage = () => {
 					};
 				}),
 			);
-			setProgress(0);
+			setPercent(0);
+			setProgress(false);
 		});
 		window.electron.on('upscayl-error', (event) => {});
 
 		window.electron.on('upscayl-progress', (event, percent) => {
-			setProgress(percent);
+			setPercent(percent);
 		});
 	});
 
-	const progressRender = () => {
-		if (progress > 0) {
-			return { filter: 'blur(8px)' };
-		} else {
-			return {};
-		}
-	};
 	return (
 		<>
 			<Head />
 			<Header title={messages.upscayl.title} />
 			<Sidebar />
 			<Main>
-				<div style={progressRender()}>
-					{images
-						? images.map((image, index) => {
-								if (image.after) {
-									return (
-										<SliderBeforeAfter
-											key={index}
-											size={250}
-											urlFirstImage={image.before}
-											urlSecondImage={image.after}></SliderBeforeAfter>
-									);
-								} else {
-									return <SliderBeforeAfter key={index} size={250} urlFirstImage={image.before}></SliderBeforeAfter>;
-								}
-						  })
-						: null}
-				</div>
+				{images
+					? images.map((image, index) => {
+							return (
+								<Image key={index} after={image.after} before={image.before} progress={progress} percent={percent} />
+							);
+					  })
+					: null}
 				<Button onClick={openFile}>{messages.upscayl.openFile}</Button>
-				<Button onClick={openDirectory}>{messages.upscayl.openDirectory}</Button>
+				{/* <Button onClick={openDirectory}>{messages.upscayl.openDirectory}</Button> */}
 				<Button onClick={superResolution}>{messages.upscayl.upscayle}</Button>
 			</Main>
 		</>

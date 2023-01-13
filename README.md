@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo.svg" alt="Super resolution logo" width="128" height="128">
+  <img src="./assets/logo.png" alt="Super resolution logo" width="128" height="128">
   <h1 align="center">Super resolution</h1>
 </p>
 <p align="center">

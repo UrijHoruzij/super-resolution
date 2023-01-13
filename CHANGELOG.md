@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.3.0...v1.4.0) (2023-01-13)
+
+
+### Bug Fixes
+
+* merge package.json ([83367ab](https://github.com/UrijHoruzij/super-resolution/commit/83367ab1af6135dc2db23eef041d65c92ec38af4))
+
+
+### Features
+
+* add loader image, edit upscayl script ([8351581](https://github.com/UrijHoruzij/super-resolution/commit/83515811a2e3299c9296e4d4a8bde42070815230))
+
 # [1.3.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.2.0...v1.3.0) (2023-01-12)
 
 

@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/UrijHoruzij/super-resolution/compare/v1.4.0...v1.4.1) (2023-01-13)
+
+
+### Bug Fixes
+
+* edit autoUpdate ([d478bd5](https://github.com/UrijHoruzij/super-resolution/commit/d478bd560192398a035d4d0bdccd60dc629e1f60))
+* remove devtools ([278b563](https://github.com/UrijHoruzij/super-resolution/commit/278b5631d7ed37aca81e6b67ff48482d951c64f1))
+
 # [1.4.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.3.0...v1.4.0) (2023-01-13)
 
 

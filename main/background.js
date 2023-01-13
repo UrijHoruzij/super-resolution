@@ -77,7 +77,7 @@ app.on('ready', async () => {
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 	mainWindow.removeMenu();
 	mainWindow.once('ready-to-show', () => {
 		setTimeout(() => {
@@ -91,7 +91,6 @@ app.on('ready', async () => {
 		await mainWindow.loadURL('app://./index.html');
 	}
 	autoUpdate(mainWindow);
-	autoUpdater.checkForUpdatesAndNotify();
 
 	ipcMain.on('upscayl', async () => {
 		const index = 0;

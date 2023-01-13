@@ -48,7 +48,7 @@ function Settings() {
 		}
 	};
 	useEffect(() => {
-		window.electron.on('update-status', ({ status, bytesPerSecond, percent, totalevent }) => {
+		window.electron.on('update-status', (event, { status, bytesPerSecond, percent, totalevent }) => {
 			setUpdateStatus(status);
 			if (status === 'download-progress') {
 				setDownloadProgress(percent);

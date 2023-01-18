@@ -81,7 +81,7 @@ function Settings() {
 							{updateMessages()}
 							{updateStatus === 'download-progress' ? (
 								<div>
-									{bytesPerSecond / 1024}kB/s-{downloadProgress}%
+									{(bytesPerSecond / 1024).toFixed(0)}kB/s-{downloadProgress.toFixed(0)}%
 								</div>
 							) : null}
 						</td>

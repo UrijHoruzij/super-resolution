@@ -28,7 +28,7 @@
 		"electron-is-dev": "^2.0.0",
 		"electron-reload": "^2.0.0-alpha.1",
 		"electron-serve": "^1.1.0",
-		"electron-updater": "^5.2.1",
+		"electron-updater": "^5.3.0",
 		"ui-forest": "^1.11.4"
 	},
 	"devDependencies": {
@@ -37,10 +37,10 @@
 		"@semantic-release/changelog": "^6.0.2",
 		"@semantic-release/git": "^10.0.1",
 		"@semantic-release/npm": "^9.0.1",
-		"electron": "^20.1.0",
-		"electron-builder": "^23.3.3",
-		"husky": "^8.0.1",
-		"next": "^13.1.1",
+		"electron": "^22.0.2",
+		"electron-builder": "^23.6.0",
+		"husky": "^8.0.3",
+		"next": "^13.1.2",
 		"next-transpile-modules": "^10.0.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"

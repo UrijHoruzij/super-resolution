@@ -1,10 +1,8 @@
 const { app, ipcMain, dialog } = require('electron');
 const serve = require('electron-serve');
 const path = require('path');
-const { autoUpdater } = require('electron-updater');
 const isDev = require('electron-is-dev');
-const settings = require('electron-settings');
-const { upscayl, autoUpdate, createWindow } = require('./helpers/');
+const { upscayl, autoUpdate, createWindow, store } = require('./helpers/');
 
 if (isDev) {
 	require('electron-reload')(__dirname, {
@@ -21,21 +19,19 @@ let files = [];
 let saveDirectory = [];
 let flag = false;
 app.on('ready', async () => {
-	const local = await settings.get('local.name');
-	if (!!!local) {
-		await settings.set('local', {
-			name: app.getLocaleCountryCode().toLowerCase(),
-		});
-	}
+	const settings = store({
+		configName: 'settings',
+		defaults: {
+			locale: app.getLocaleCountryCode().toLowerCase(),
+		},
+	});
 	ipcMain.handle('get-lang', async (e) => {
-		const lang = await settings.get('local.name');
+		const lang = await settings.get('locale');
 		return lang;
 	});
 	ipcMain.handle('set-lang', async (e, newLang) => {
-		await settings.set('local', {
-			name: newLang,
-		});
-		const lang = await settings.get('local.name');
+		await settings.set('locale', newLang);
+		const lang = await settings.get('locale');
 		return lang;
 	});
 	splashWindow = createWindow(
@@ -77,7 +73,9 @@ app.on('ready', async () => {
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
-	// mainWindow.webContents.openDevTools();
+	if (isDev) {
+		mainWindow.webContents.openDevTools();
+	}
 	mainWindow.removeMenu();
 	mainWindow.once('ready-to-show', () => {
 		setTimeout(() => {

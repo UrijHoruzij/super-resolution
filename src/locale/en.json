@@ -10,7 +10,8 @@
 		"minimize": "",
 		"maximize": "",
 		"unmaximize": "",
-		"close": "Close"
+		"close": "Close",
+		"title": "Super resolution"
 	},
 	"home": {
 		"name": "Super resolution",

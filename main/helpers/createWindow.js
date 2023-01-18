@@ -1,6 +1,5 @@
 const { screen, BrowserWindow } = require('electron');
-const Store = require('electron-store');
-
+const Store = require('./store.js');
 const createWindow = (windowName, options, splash = false) => {
 	let win;
 	if (splash) {
@@ -9,15 +8,19 @@ const createWindow = (windowName, options, splash = false) => {
 		});
 		return win;
 	}
+	const store = Store({
+		configName: `window-state-${windowName}`,
+		defaults: {
+			windowBounds: { width: options.width, height: options.height },
+		},
+	});
 	let state = {};
 	const key = 'window-state';
-	const name = `window-state-${windowName}`;
-	const store = new Store({ name });
 	const defaultSize = {
 		width: options.width,
 		height: options.height,
 	};
-	const restore = () => store.get(key, defaultSize);
+	const restore = () => store.get(key);
 	const getCurrentPosition = () => {
 		const position = win.getPosition();
 		const size = win.getSize();

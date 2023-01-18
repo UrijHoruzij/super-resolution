@@ -30,7 +30,7 @@ const Header = () => {
 		<>
 			<header className={classnames(styles.titlebar, { [styles.maximized]: maximise })}>
 				<div className={styles.drag_region}>
-					<div className={styles.window_title}>Суперразрешение</div>
+					<div className={styles.window_title}>{messages.frame.title}</div>
 					<div className={styles.window_controls}>
 						<div
 							title={messages.frame.minimize}

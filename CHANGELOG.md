@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.4.2...v1.5.0) (2023-01-18)
+
+
+### Features
+
+* remove electron-store and electron-settings ([3e2b424](https://github.com/UrijHoruzij/super-resolution/commit/3e2b42435ab47efdcd58ce205860a0e627dd98c5))
+
 ## [1.4.2](https://github.com/UrijHoruzij/super-resolution/compare/v1.4.1...v1.4.2) (2023-01-13)
 
 

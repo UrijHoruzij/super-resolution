@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.5.1...v1.6.0) (2023-01-26)
+
+
+### Features
+
+* add drag on drop ([b9731d7](https://github.com/UrijHoruzij/super-resolution/commit/b9731d7cbc7652af6827f1a731569651d86da5c0))
+
 ## [1.5.1](https://github.com/UrijHoruzij/super-resolution/compare/v1.5.0...v1.5.1) (2023-01-18)
 
 

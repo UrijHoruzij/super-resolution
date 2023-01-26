@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/UrijHoruzij/super-resolution/compare/v1.5.0...v1.5.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* edit setting bytesPerSecond ([a0d60b3](https://github.com/UrijHoruzij/super-resolution/commit/a0d60b31eadc9d7698c34e713250650e3919dd69))
+
 # [1.5.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.4.2...v1.5.0) (2023-01-18)
 
 

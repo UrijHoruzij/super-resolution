@@ -15,7 +15,6 @@ const upscayl = (inputDir, outputDir = null, mainWindow, index) => {
 	} else {
 		outputDirectory = path.dirname(inputDir);
 	}
-	console.log(outputDirectory);
 	if (stats.isDirectory()) {
 		outFile = outputDirectory;
 	} else {

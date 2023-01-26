@@ -6,5 +6,6 @@ export { default as Main } from './Main';
 export { default as Splash } from './Splash';
 export { default as Spinner } from './Spinner';
 export { default as Image } from './Image';
+export { default as Dragzone } from './Dragzone';
 
 export { default as LangContext } from './Context';

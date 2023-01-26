@@ -1,13 +1,14 @@
 import { useEffect, useState, useContext } from 'react';
 import Head from 'next/head';
 import { Button } from 'ui-forest';
-import { Header, Sidebar, Main, LangContext, Image } from '../components';
+import { Header, Sidebar, Main, LangContext, Image, Dragzone } from '../components';
 
 const superResolutionPage = () => {
 	const [messages] = useContext(LangContext);
 	const [images, setImages] = useState([]);
 	const [percent, setPercent] = useState(0);
 	const [progress, setProgress] = useState(false);
+
 	const superResolution = () => {
 		setProgress(true);
 		window.electron.send('upscayl');
@@ -17,6 +18,22 @@ const superResolutionPage = () => {
 	};
 	const openDirectory = () => {
 		window.electron.send('open-directory');
+	};
+	const drop = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+			const files = [];
+			for (const file of e.dataTransfer.files) {
+				if (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif') {
+					files.push(file.path);
+				}
+			}
+			window.electron.send('drag-files', files);
+		}
+	};
+	const dragOver = (event) => {
+		event.preventDefault();
 	};
 	useEffect(() => {
 		window.electron.on('open-files', (event, files) => {
@@ -58,16 +75,21 @@ const superResolutionPage = () => {
 			<Header title={messages.upscayl.title} />
 			<Sidebar />
 			<Main>
-				{images
-					? images.map((image, index) => {
+				{images.length > 0 ? (
+					<>
+						{images.map((image, index) => {
 							return (
 								<Image key={index} after={image.after} before={image.before} progress={progress} percent={percent} />
 							);
-					  })
-					: null}
-				<Button onClick={openFile}>{messages.upscayl.openFile}</Button>
+						})}
+						<Button onClick={superResolution}>{messages.upscayl.upscayle}</Button>
+					</>
+				) : (
+					<Dragzone drop={drop} dragOver={dragOver} openFile={openFile}>
+						{messages.upscayl.dragzone}
+					</Dragzone>
+				)}
 				{/* <Button onClick={openDirectory}>{messages.upscayl.openDirectory}</Button> */}
-				<Button onClick={superResolution}>{messages.upscayl.upscayle}</Button>
 			</Main>
 		</>
 	);

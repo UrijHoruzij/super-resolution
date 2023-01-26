@@ -1,6 +1,6 @@
 .main {
 	height: calc(100% - 32px);
-	margin-top: 32px;
+	margin-top: 24px;
 	padding: 20px;
 	overflow-y: auto;
 }

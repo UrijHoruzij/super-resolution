@@ -76,7 +76,6 @@ app.on('ready', async () => {
 	if (isDev) {
 		mainWindow.webContents.openDevTools();
 	}
-	mainWindow.removeMenu();
 	mainWindow.once('ready-to-show', () => {
 		setTimeout(() => {
 			splashWindow.close();
@@ -121,6 +120,11 @@ app.on('ready', async () => {
 		mainWindow.close();
 	});
 
+	ipcMain.on('drag-files', async (e, filePaths) => {
+		files = [...filePaths];
+		const filesPathsPosix = filePaths.map((file) => file.split(path.sep).join(path.posix.sep));
+		e.reply('open-files', filesPathsPosix);
+	});
 	ipcMain.on('open-files', async (e) => {
 		const { filePaths } = await dialog.showOpenDialog({
 			filters: [{ name: 'Изображения', extensions: ['jpg', 'png', 'gif'] }],

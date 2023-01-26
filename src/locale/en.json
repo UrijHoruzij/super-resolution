@@ -21,7 +21,8 @@
 		"title": "Super resolution",
 		"openFile": "Open file",
 		"openDirectory": "Open directory",
-		"upscayle": "Upscayle"
+		"upscayle": "Upscayle",
+		"dragzone": "Drag and drop a file or select image"
 	},
 	"settings": {
 		"title": "Settings",

@@ -18,7 +18,6 @@ export default SplashPage;
 export const getStaticProps = async () => {
 	return {
 		props: {
-			splash: true,
 			version: packageJson.version,
 		},
 	};

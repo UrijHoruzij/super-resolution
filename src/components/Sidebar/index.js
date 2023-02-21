@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { LangContext } from '../';
 import styles from './Sidebar.module.css';
+import { Button } from 'ui-forest';
 
-import logo from '../../../public/images/logo-big.svg';
 import upscaleImage from '../../../public/images/image.svg';
 import settingsImage from '../../../public/images/settings.svg';
 import helpImage from '../../../public/images/help.svg';
@@ -14,40 +14,24 @@ import helpImage from '../../../public/images/help.svg';
 const Sidebar = () => {
 	const [messages] = useContext(LangContext);
 	const router = useRouter();
+	const openFile = () => {
+		window.electron.send('open-file');
+	};
+	useEffect(() => {
+		window.electron.on('open-file', (event, opened) => {
+			if (opened) router.push('/editor');
+		});
+	});
 	return (
 		<div className={styles.sidebar}>
-			<div className={styles.sidebar__logo}>
-				<div className={styles.sidebar__item_image}>
-					<Image src={logo} alt={messages.home.name} width={44} height={44} />
-				</div>
-				<div className={styles.sidebar__name}>{messages.home.name}</div>
-			</div>
 			<nav className={styles.sidebar__menu}>
 				<ul className={styles.sidebar__list}>
-					<li
-						className={classnames(styles.sidebar__item, {
-							[styles.sidebar__itemActiv]: router.pathname == '/superResolution',
-						})}>
-						<Link href="/superResolution">
-							<div className={styles.sidebar__item_image}>
-								<Image src={upscaleImage} alt={messages.upscayl.title} width={24} height={24} />
-							</div>
-							{messages.upscayl.title}
-						</Link>
-					</li>
-					{/* <li className={styles.sidebar__item}>
-						<Link href="/">
-							Испраление
-						</Link>
-					</li>
-					<li className={styles.sidebar__item}>
-						<Link href="/">
-							Колоризация
-						</Link>
-					</li> */}
+					<Button onClick={openFile} variant="secondary">
+						Открыть
+					</Button>
 				</ul>
 			</nav>
-			<ul className={classnames(styles.sidebar__list, styles.sidebar__footer)}>
+			{/* <ul className={classnames(styles.sidebar__list, styles.sidebar__footer)}>
 				<li
 					className={classnames(styles.sidebar__item, {
 						[styles.sidebar__itemActiv]: router.pathname == '/settings',
@@ -82,7 +66,7 @@ const Sidebar = () => {
 						{messages.help.title}
 					</Link>
 				</li>
-			</ul>
+			</ul> */}
 		</div>
 	);
 };

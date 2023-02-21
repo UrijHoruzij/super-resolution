@@ -1,5 +1,6 @@
 .wrapper {
 	border: 4px dashed var(--accent);
+
 	position: relative;
 }
 .text {

@@ -1,6 +1,7 @@
 import '../styles/Global.css';
 import { useState } from 'react';
-import { Layout, LangContext } from '../components';
+import { LangContext, MenuContext } from '../components';
+import { ThemeProvider } from 'ui-forest';
 import translate from '../locale';
 
 const MyApp = ({ Component, pageProps }) => {
@@ -9,15 +10,22 @@ const MyApp = ({ Component, pageProps }) => {
 	const changeLang = (newLang) => {
 		setMessages(translate(newLang));
 	};
+
+	const [menuItem, setMenuItem] = useState(null);
+	const changeMenu = (item = null) => {
+		if (menuItem === item) {
+			setMenuItem(null);
+		} else {
+			setMenuItem(item);
+		}
+	};
 	return (
 		<LangContext.Provider value={[messages, changeLang, lang, setLang]}>
-			{pageProps.splash ? (
-				<Component {...pageProps} />
-			) : (
-				<Layout>
+			<MenuContext.Provider value={[menuItem, changeMenu]}>
+				<ThemeProvider>
 					<Component {...pageProps} />
-				</Layout>
-			)}
+				</ThemeProvider>
+			</MenuContext.Provider>
 		</LangContext.Provider>
 	);
 };

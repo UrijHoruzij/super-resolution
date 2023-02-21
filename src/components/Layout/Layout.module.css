@@ -1,7 +1,20 @@
 .layout {
-	display: grid;
-	grid-template-columns: 288px 4fr;
-	grid-template-rows: 32px 120px 1fr;
+	height: calc(100% - 32px);
 	background-color: var(--black);
 	overflow: hidden;
+}
+.type_1 {
+	display: grid;
+	grid-template-columns: 288px 4fr;
+	grid-template-rows: 1fr;
+}
+.type_2 {
+	display: grid;
+	grid-template-columns: 4fr 288px;
+	grid-template-rows: 1fr;
+}
+.type_3 {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
 }

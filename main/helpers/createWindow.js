@@ -1,4 +1,4 @@
-const { screen, BrowserWindow } = require('electron');
+const { screen, BrowserWindow, ipcMain } = require('electron');
 const Store = require('./store.js');
 const createWindow = (windowName, options, splash = false) => {
 	let win;
@@ -67,6 +67,25 @@ const createWindow = (windowName, options, splash = false) => {
 	win = new BrowserWindow({
 		...options,
 		...state,
+	});
+	ipcMain.on(`window-${windowName}-min`, () => {
+		win.minimize();
+	});
+	ipcMain.on(`window-${windowName}-max`, () => {
+		win.maximize();
+	});
+	ipcMain.on(`window-${windowName}-unmax`, () => {
+		win.unmaximize();
+	});
+	ipcMain.handle(`window-${windowName}-ismax`, () => {
+		if (win.isMaximized()) {
+			return true;
+		} else {
+			return false;
+		}
+	});
+	ipcMain.on(`window-${windowName}-close`, () => {
+		win.close();
 	});
 	win.on('close', saveState);
 	return win;

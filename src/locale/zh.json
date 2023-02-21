@@ -1,0 +1,45 @@
+{
+	"splash": {
+		"author": "Horuzij Urij",
+		"authorImage": "插图作者:",
+		"copyright": "版权所有不得转载",
+		"title": "超分辨率",
+		"loading": "装载量"
+	},
+	"frame": {
+		"minimize": "卷起来",
+		"maximize": "展开,展开",
+		"unmaximize": "折叠到窗口",
+		"close": "关闭",
+		"title": "超分辨率"
+	},
+	"home": {
+		"name": "超分辨率",
+		"title": "很高兴再次见到你"
+	},
+	"upscayl": {
+		"title": "超分辨率",
+		"openFile": "选择图像",
+		"openDirectory": "选择文件夹",
+		"upscayle": "增加",
+		"dragzone": "拖放文件或选择图像"
+	},
+	"settings": {
+		"title": "设置",
+		"changeLang": "选择一种语言:",
+		"changeDirectory": "选择默认文件夹:",
+		"autoUpdater": {
+			"checkingForUpdateBtn": "检查更新",
+			"updateBtn": "更新资料",
+			"checkingForUpdate": "检查更新",
+			"updateAvailable": "发现的更新",
+			"updateNotAvailable": "没有找到更新",
+			"updateDownloaded": "下载的更新",
+			"error": "更新错误",
+			"downloadProgress": "下载"
+		}
+	},
+	"help": {
+		"title": "救命！"
+	}
+}

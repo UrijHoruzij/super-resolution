@@ -17,7 +17,7 @@ const Splash = (props) => {
 					<br />
 					{messages.splash.copyright}
 				</div>
-				<div className={styles.copyright}>{messages.splash.authorImage} Nikolay Vorobyev</div>
+				<div className={styles.copyright}>{messages.splash.authorImage} Vladimir Fedotov</div>
 				<div className={styles.loading}>
 					{messages.splash.loading}
 					<div className={styles.dots}>

@@ -4,25 +4,29 @@ import classnames from 'classnames';
 import { LangContext } from '../';
 import styles from './Frame.module.css';
 
-const Header = () => {
+import logo from '../../../public/images/logo-big.svg';
+
+const Frame = (props) => {
+	const { children, nameWindow } = props;
 	const [messages] = useContext(LangContext);
 	const [maximise, setMaximize] = useState(false);
+
 	const minimizeWindow = () => {
-		window.electron.send('window-min');
+		window.electron.send(`window-${nameWindow}-min`);
 	};
 	const maximizeWindow = () => {
-		window.electron.send('window-max');
+		window.electron.send(`window-${nameWindow}-max`);
 		setMaximize(true);
 	};
 	const unmaximizeWindow = () => {
-		window.electron.send('window-unmax');
+		window.electron.send(`window-${nameWindow}-unmax`);
 		setMaximize(false);
 	};
 	const closeWindow = () => {
-		window.electron.send('window-close');
+		window.electron.send(`window-${nameWindow}-close`);
 	};
 	useEffect(() => {
-		window.electron?.invoke('window-ismax').then((max) => {
+		window.electron?.invoke(`window-${nameWindow}-ismax`).then((max) => {
 			setMaximize(max);
 		});
 	}, [maximise]);
@@ -30,7 +34,10 @@ const Header = () => {
 		<>
 			<header className={classnames(styles.titlebar, { [styles.maximized]: maximise })}>
 				<div className={styles.drag_region}>
-					<div className={styles.window_title}>{messages.frame.title}</div>
+					<div className={styles.window_title}>
+						<Image src={logo} alt={messages.frame.title} width={20} height={20} />
+					</div>
+					{children ? children : <div></div>}
 					<div className={styles.window_controls}>
 						<div
 							title={messages.frame.minimize}
@@ -79,4 +86,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default Frame;

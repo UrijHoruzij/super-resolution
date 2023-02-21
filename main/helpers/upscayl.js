@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { modelsPath, execPath } = require('./binaries');
 
-const upscayl = (inputDir, outputDir = null, mainWindow, index) => {
+const upscayl = (inputDir, outputDir = null, mainWindow, temp, gpuId = null) => {
 	mainWindow.setProgressBar(0.01);
 	mainWindow.webContents.send('upscayl-progress', 1);
 	let failed = false;
@@ -55,7 +55,8 @@ const upscayl = (inputDir, outputDir = null, mainWindow, index) => {
 		mainWindow.setProgressBar(-1);
 		if (!failed) {
 			const out = outFile.split(path.sep).join(path.posix.sep);
-			mainWindow.webContents.send('upscayl-done', { after: out, index });
+			mainWindow.webContents.send('upscayl-done', { url: out });
+			temp.push(out);
 		} else {
 			mainWindow.webContents.send('upscayl-error');
 		}

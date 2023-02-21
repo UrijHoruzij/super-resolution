@@ -1,0 +1,90 @@
+.window_menu {
+	display: flex;
+	align-items: center;
+	margin-left: 4px;
+	position: relative;
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 13px;
+	line-height: 1.5;
+}
+.window_menu_list {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	user-select: none;
+	-webkit-app-region: no-drag;
+	color: var(--grey);
+}
+.window_menu_list li {
+	position: relative;
+}
+.window_menu_item {
+	padding: 4px 6px;
+	margin-left: 4px;
+}
+.window_menu_item:hover {
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+.menu {
+	display: none;
+	position: absolute;
+	flex-direction: column;
+	background-color: var(--frame);
+	border-radius: 8px;
+	box-shadow: 0 10px 20px rgba(64, 64, 64, 0.15);
+	top: 32px;
+	left: 0;
+	width: 208px;
+	color: var(--white);
+	z-index: 100;
+}
+.menu_list,
+.menu_sub_list {
+	margin: 0;
+	display: block;
+	width: 100%;
+	padding: 4px;
+	list-style-type: none;
+}
+.menu_sub_list {
+	display: none;
+	padding: 4px;
+	background-color: var(--frame);
+	box-shadow: 0 10px 20px rgba(64, 64, 64, 0.15);
+	position: absolute;
+	left: 100%;
+	right: 0;
+	z-index: 100;
+	width: 100%;
+	top: 0;
+	flex-direction: column;
+}
+.menu_list + .menu_list {
+	border-top: 1px solid var(--border);
+}
+.menu_item {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 4px 16px;
+	border-radius: 4px;
+}
+.menu_item:hover > .menu_sub_list {
+	display: flex;
+}
+.menu_item:hover {
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+.menu_item_disabled {
+	color: rgba(255, 255, 255, 0.3);
+}
+.menu_item_disabled:hover {
+	cursor: default;
+	background: none;
+}
+.menu_show {
+	display: flex;
+}

@@ -1,21 +1,20 @@
-import { SliderBeforeAfter } from 'ui-forest';
 import classnames from 'classnames';
 import { Spinner } from '../';
 import styles from './Image.module.css';
 
-const Image = (props) => {
-	const { after, before, progress, percent } = props;
+const ImageWrapper = (props) => {
+	const { image, size, progress, percent } = props;
+	const imageStyle = {
+		maxWidth: `${size}px`,
+		maxHeight: `${size}px`,
+	};
 	return (
 		<div className={styles.wrapper}>
 			<div
 				className={classnames({
 					[styles.blur]: progress,
 				})}>
-				{after ? (
-					<SliderBeforeAfter size={250} urlFirstImage={before} urlSecondImage={after}></SliderBeforeAfter>
-				) : (
-					<SliderBeforeAfter size={250} urlFirstImage={before}></SliderBeforeAfter>
-				)}
+				<img style={imageStyle} className={styles.image} src={image} alt="" />
 			</div>
 			{progress && (
 				<div className={styles.loader}>
@@ -26,4 +25,4 @@ const Image = (props) => {
 		</div>
 	);
 };
-export default Image;
+export default ImageWrapper;

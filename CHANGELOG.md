@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.6.0...v2.0.0) (2023-02-21)
+
+
+### Features
+
+* add new design ([ff713c4](https://github.com/UrijHoruzij/super-resolution/commit/ff713c45484ee1bb44b6db217748b11b4e9cc9a9))
+
+
+### BREAKING CHANGES
+
+* new design
+
 # [1.6.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.5.1...v1.6.0) (2023-01-26)
 
 

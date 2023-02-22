@@ -16,7 +16,33 @@
 			"filter": ["**/*"]
 		}
 	],
-
+	"mac": {
+		"type": "distribution",
+		"hardenedRuntime": true,
+		"entitlements": "main/resources/entitlements.mac.plist",
+		"entitlementsInherit": "main/resources/entitlements.mac.plist",
+		"gatekeeperAssess": false,
+		"target": [
+			{
+				"target": "dmg",
+				"arch": ["x64"]
+			}
+		]
+	},
+	"dmg": {
+		"contents": [
+			{
+				"x": 130,
+				"y": 220
+			},
+			{
+				"x": 410,
+				"y": 220,
+				"type": "link",
+				"path": "/Applications"
+			}
+		]
+	},
 	"linux": {
 		"target": ["deb", "rpm"],
 		"maintainer": "Urij Horuzij <urijhoruzij@gmail.com>",

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Layout, Sidebar, Main, LangContext, MenuContext, Frame, Menu } from '../components';
+import { Layout, Main, LangContext, MenuContext, Frame, Menu } from '../components';
 import { Button } from 'ui-forest';
 
 const Settings = () => {
@@ -101,7 +101,7 @@ const Settings = () => {
 			</Frame>
 			<Layout type="type-3">
 				<Main>
-					<table>
+					<table style={{ padding: '16px' }}>
 						<tr>
 							<td>{messages.settings.changeLang}</td>
 							<td>

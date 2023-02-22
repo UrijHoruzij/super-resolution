@@ -3,63 +3,53 @@ const fs = require('fs');
 const path = require('path');
 const { modelsPath, execPath } = require('./binaries');
 
-const upscayl = (inputDir, outputDir = null, mainWindow, temp, gpuId = null) => {
-	mainWindow.setProgressBar(0.01);
-	mainWindow.webContents.send('upscayl-progress', 1);
-	let failed = false;
-	let outFile = '';
-	let stats = fs.statSync(inputDir);
-	let outputDirectory = '';
-	if (outputDir) {
-		outputDirectory = outputDir;
-	} else {
-		outputDirectory = path.dirname(inputDir);
-	}
-	if (stats.isDirectory()) {
-		outFile = outputDirectory;
-	} else {
-		const fileName = path.parse(inputDir).name;
-		const fileExt = path.parse(inputDir).ext;
-		outFile = `${outputDirectory}/${fileName}_upscayl${fileExt}`;
-	}
-	const upscayl = spawn(
-		execPath('realesrgan'),
-		['-i', inputDir, '-o', outFile, '-s', 4, '-m', modelsPath, '-n', 'realesrgan-x4plus'],
-		{
-			cwd: undefined,
-			detached: false,
-		},
-	);
-	upscayl.stderr.on('data', (data) => {
-		data = data.toString();
-		const percentString = data.match(/\d+,\d+%/) || [];
-		if (percentString.length) {
-			let percent = parseFloat(percentString[0].slice(0, -1)) / 100;
-			if (percent > 0.01) {
-				mainWindow.setProgressBar(percent);
-				mainWindow.webContents.send('upscayl-progress', percent * 100);
-			}
-		}
-		if (data.includes('invalid gpu') || data.includes('failed')) {
-			failed = true;
-		}
-	});
-
-	upscayl.on('error', (data) => {
-		data.toString();
-		console.log('error');
-		failed = true;
-		return;
-	});
-	upscayl.on('close', (code) => {
-		mainWindow.setProgressBar(-1);
-		if (!failed) {
-			const out = outFile.split(path.sep).join(path.posix.sep);
-			mainWindow.webContents.send('upscayl-done', { url: out });
-			temp.push(out);
+const upscayl = (input, output, percent) => {
+	return new Promise((resolve, rejects) => {
+		let failed = false;
+		let out = '';
+		let outputDir = '';
+		let stats = fs.statSync(input);
+		if (output) {
+			outputDir = output;
 		} else {
-			mainWindow.webContents.send('upscayl-error');
+			outputDir = path.dirname(input);
 		}
+		if (stats.isDirectory()) {
+			out = outputDir;
+		} else {
+			const fileName = path.parse(input).name;
+			const fileExt = path.parse(input).ext;
+			out = `${outputDir}/${fileName}${fileExt}`;
+		}
+		const upscayl = spawn(
+			execPath('realesrgan'),
+			['-i', input, '-o', out, '-s', 4, '-m', modelsPath, '-n', 'realesrgan-x4plus'],
+			{
+				cwd: undefined,
+				detached: false,
+			},
+		);
+		upscayl.stderr.on('data', (data) => {
+			data = data.toString();
+			const percentString = data.match(/\d+,\d+%/) || [];
+			if (percentString.length) {
+				let percentNumber = parseFloat(percentString[0].slice(0, -1));
+				if (percentNumber > 1) percent(percentNumber);
+			}
+			if (data.includes('invalid gpu') || data.includes('failed')) failed = true;
+		});
+		upscayl.on('error', (data) => {
+			data.toString();
+			rejects(data);
+			failed = true;
+			return;
+		});
+		upscayl.on('close', () => {
+			if (!failed) {
+				const file = out.split(path.sep).join(path.posix.sep);
+				resolve(file);
+			}
+		});
 	});
 };
 

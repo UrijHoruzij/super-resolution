@@ -11,11 +11,16 @@ const editorPage = () => {
 	const [percent, setPercent] = useState(0);
 	const [progress, setProgress] = useState(false);
 	const [save, setSave] = useState(0);
+	const [scale, setScale] = useState(8);
 
 	const router = useRouter();
+
+	const changeScale = (e) => {
+		setScale(e.target.value);
+	};
 	const upscayl = () => {
 		setProgress(true);
-		window.electron.send('upscayl');
+		window.electron.send('upscayl', scale);
 	};
 
 	useEffect(() => {
@@ -29,7 +34,7 @@ const editorPage = () => {
 	useEffect(() => {
 		window.electron.on('upscayl-done', (event, upscaylImg) => {
 			setImage({
-				url: upscaylImg.url,
+				url: upscaylImg,
 			});
 			setPercent(0);
 			setProgress(false);
@@ -56,7 +61,7 @@ const editorPage = () => {
 					{
 						id: 'file-item-2',
 						name: 'Главная',
-						shortcut: 'CTRL+S',
+						shortcut: 'CTRL+M',
 						onClick: () => router.push('/'),
 						// subMenu: [
 						// 	{ id: 'file-item-4-sub-1', name: 'Сохранить', shortcut: 'CTRL+S' },
@@ -64,7 +69,14 @@ const editorPage = () => {
 						// ],
 					},
 				],
-				[{ id: 'file-item-5', name: 'Выход', onClick: () => window.electron.send('window-main-close') }],
+				[
+					{
+						id: 'file-item-5',
+						name: 'Выход',
+						shortcut: 'CTRL+Q',
+						onClick: () => window.electron.send('window-main-close'),
+					},
+				],
 			],
 		},
 		{

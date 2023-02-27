@@ -26,6 +26,7 @@ const editorPage = () => {
 	useEffect(() => {
 		window.electron.send('opened-file');
 		window.electron.on('opened-file', (event, file) => {
+			console.log(file);
 			setImage({
 				url: file,
 			});
@@ -62,7 +63,10 @@ const editorPage = () => {
 						id: 'file-item-2',
 						name: 'Главная',
 						shortcut: 'CTRL+M',
-						onClick: () => router.push('/'),
+						onClick: () => {
+							window.electron.send('close-file');
+							router.push('/');
+						},
 						// subMenu: [
 						// 	{ id: 'file-item-4-sub-1', name: 'Сохранить', shortcut: 'CTRL+S' },
 						// 	{ id: 'file-item-4-sub-2', name: 'Сохранить', shortcut: 'CTRL+S' },
@@ -74,7 +78,10 @@ const editorPage = () => {
 						id: 'file-item-5',
 						name: 'Выход',
 						shortcut: 'CTRL+Q',
-						onClick: () => window.electron.send('window-main-close'),
+						onClick: () => {
+							window.electron.send('close-file');
+							window.electron.send('window-main-close');
+						},
 					},
 				],
 			],
@@ -82,9 +89,19 @@ const editorPage = () => {
 		{
 			id: 'settings',
 			name: messages.settings.title,
-			onClick: () => window.electron.send('settings'),
+			onClick: () => {
+				window.electron.send('close-file');
+				router.push('/settings');
+			},
 		},
-		{ id: 'help', name: 'Справка', onClick: () => router.push('/help') },
+		{
+			id: 'help',
+			name: 'Справка',
+			onClick: () => {
+				window.electron.send('close-file');
+				router.push('/help');
+			},
+		},
 	];
 
 	return (

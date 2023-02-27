@@ -1,8 +1,9 @@
-const { dialog } = require('electron');
+const { app, remote, dialog } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
-const store = require('./store');
+
+const userDataPath = (app || remote.app).getPath('userData');
 
 const copy = (oldPath, newPath) => {
 	let readStream = fs.createReadStream(oldPath);
@@ -10,11 +11,11 @@ const copy = (oldPath, newPath) => {
 	readStream.on('error', () => {});
 	writeStream.on('error', () => {});
 	readStream.on('close', () => {
-		// fs.unlink(oldPath, () => {});
+		fs.unlink(oldPath, () => {});
 	});
 	readStream.pipe(writeStream);
 };
-const previews = async (previews, userDataPath, filePath) => {
+const previews = async (previews, filePath) => {
 	if (!fs.existsSync(path.join(userDataPath, 'previews'))) {
 		fs.mkdirSync(path.join(userDataPath, 'previews'));
 	}
@@ -35,14 +36,33 @@ const previews = async (previews, userDataPath, filePath) => {
 	await previews.set('paths', [...oldPreviews, `${dest.split(path.sep).join(path.posix.sep)}`]);
 };
 
-const openFile = async () => {
+const openFile = async (temporary) => {
 	const { filePaths } = await dialog.showOpenDialog({
 		filters: [{ name: 'Изображения', extensions: ['jpg', 'png', 'gif'] }],
 		properties: ['openFile'],
 	});
-	file = [...filePaths];
-	filePathPosix = [filePaths[0].split(path.sep).join(path.posix.sep)];
-	return { file, filePathPosix };
+	await temporary.set('file', [...filePaths]);
+	await temporary.set('filePathPosix', [filePaths[0].split(path.sep).join(path.posix.sep)]);
+};
+const saveFile = async (temporary, previewsStore) => {
+	const temp = await temporary.get('temp');
+	if (temp) {
+		const { filePath } = await dialog.showSaveDialog({
+			filters: [
+				{ name: 'JPEG', extensions: ['jpg', 'jpeg'] },
+				{ name: 'PNG', extensions: ['png'] },
+				{ name: 'GIF', extensions: ['gif'] },
+			],
+		});
+		await previews(previewsStore, temp);
+		await copy(temp, filePath);
+		await temporary.set('temp', null);
+	}
+};
+const closeFile = async (temporary) => {
+	await temporary.set('temp', null);
+	await temporary.set('file', []);
+	await temporary.set('filePathPosix', []);
 };
 
-module.exports = { copy, previews, openFile };
+module.exports = { copy, previews, openFile, saveFile, closeFile };

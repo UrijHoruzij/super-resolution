@@ -3,12 +3,11 @@ const path = require('path');
 const upscayl = require('./upscayl');
 const utils = require('./utils');
 
-const ipc = (mainWindow, temp) => {
+const ipc = (mainWindow, temporary, previews) => {
 	const userDataPath = (app || remote.app).getPath('userData');
-	let file = [];
-	let filePathPosix = [];
 	let flag = false;
 	ipcMain.on('upscayl', async (e, scale) => {
+		const file = await temporary.get('file');
 		if (!flag && file.length > 0) {
 			flag = true;
 			const percentFunc = (percent) => {
@@ -19,7 +18,8 @@ const ipc = (mainWindow, temp) => {
 				mainWindow.setProgressBar(0.01);
 				mainWindow.webContents.send('upscayl-progress', 1);
 				const upscale = await upscayl(file[0], userDataPath, percentFunc);
-				temp = upscale;
+				await temporary.set('temp', upscale);
+				const temp = await temporary.get('temp');
 				if (scale === 8) {
 					await upscayl(temp, userDataPath, percentFunc);
 				}
@@ -33,33 +33,23 @@ const ipc = (mainWindow, temp) => {
 		}
 	});
 	ipcMain.on('drag-file', async (e, filePaths) => {
-		file = [...filePaths];
-		filePathPosix = [filePaths[0].split(path.sep).join(path.posix.sep)];
+		await temporary.set('file', [...filePaths]);
+		await temporary.set('filePathPosix', [filePaths[0].split(path.sep).join(path.posix.sep)]);
 		e.reply('open-file', true);
 	});
 	ipcMain.on('open-file', async (e) => {
-		const { filePaths } = await dialog.showOpenDialog({
-			filters: [{ name: 'Изображения', extensions: ['jpg', 'png', 'gif'] }],
-			properties: ['openFile'],
-		});
-		file = [...filePaths];
-		filePathPosix = [filePaths[0].split(path.sep).join(path.posix.sep)];
+		await utils.openFile(temporary);
 		e.reply('open-file', true);
 	});
 	ipcMain.on('opened-file', async (e) => {
+		const filePathPosix = await temporary.get('filePathPosix');
 		e.reply('opened-file', filePathPosix[0]);
 	});
 	ipcMain.on('save-file', async () => {
-		const { filePath } = await dialog.showSaveDialog({
-			filters: [
-				{ name: 'JPEG', extensions: ['jpg', 'jpeg'] },
-				{ name: 'PNG', extensions: ['png'] },
-				{ name: 'GIF', extensions: ['gif'] },
-			],
-		});
-		await utils.previews(previews, userDataPath, temp);
-		await utils.copy(temp, filePath);
-		temp = null;
+		utils.saveFile(temporary, previews);
+	});
+	ipcMain.on('close-file', async () => {
+		utils.closeFile(temporary);
 	});
 	// ipcMain.on('open-directory', async () => {
 	// 	const { filePaths } = await dialog.showOpenDialog({

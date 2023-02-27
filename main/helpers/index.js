@@ -6,5 +6,6 @@ const store = require('./store');
 const utils = require('./utils');
 const allWindows = require('./allWindows');
 const ipc = require('./ipc');
+const addMenu = require('./menu');
 
-module.exports = { autoUpdate, binaries, createWindow, upscayl, store, utils, allWindows, ipc };
+module.exports = { autoUpdate, binaries, createWindow, upscayl, store, utils, allWindows, ipc, addMenu };

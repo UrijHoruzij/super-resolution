@@ -1,8 +1,7 @@
-const { app, ipcMain, dialog, remote, Menu, MenuItem, BrowserWindow } = require('electron');
+const { app, ipcMain, BrowserWindow } = require('electron');
 const serve = require('electron-serve');
-const path = require('path');
 const isDev = require('electron-is-dev');
-const { autoUpdate, allWindows, store, utils, ipc } = require('./helpers/');
+const { autoUpdate, allWindows, store, ipc, addMenu } = require('./helpers/');
 
 if (isDev) {
 	require('electron-reload')(__dirname, {
@@ -14,9 +13,7 @@ if (!isDev) {
 }
 
 let mainWindow;
-let temp = null;
 app.on('ready', async () => {
-	const userDataPath = (app || remote.app).getPath('userData');
 	const settings = store({
 		configName: 'settings',
 		defaults: {
@@ -29,6 +26,15 @@ app.on('ready', async () => {
 			paths: [],
 		},
 	});
+	const temporary = store({
+		configName: 'temporary',
+		defaults: {
+			temp: null,
+			file: [],
+			filePathPosix: [],
+		},
+	});
+
 	ipcMain.handle('get-lang', async (e) => {
 		const lang = await settings.get('locale');
 		return lang;
@@ -43,55 +49,9 @@ app.on('ready', async () => {
 		return oldPreviews;
 	});
 	mainWindow = await allWindows();
-	const menu = new Menu();
-	menu.append(
-		new MenuItem({
-			label: 'Super-resolution',
-			submenu: [
-				{
-					role: 'Open',
-					accelerator: process.platform === 'darwin' ? 'Cmd+N' : 'Ctrl+N',
-					click: async () => {
-						const { filePaths } = await dialog.showOpenDialog({
-							filters: [{ name: 'Изображения', extensions: ['jpg', 'png', 'gif'] }],
-							properties: ['openFile'],
-						});
-						file = [...filePaths];
-						filePathPosix = [filePaths[0].split(path.sep).join(path.posix.sep)];
-						mainWindow.webContents.send('open-file', true);
-					},
-				},
-				{
-					role: 'Save',
-					accelerator: process.platform === 'darwin' ? 'Cmd+S' : 'Ctrl+S',
-					click: async () => {
-						if (temp) {
-							const { filePath } = await dialog.showSaveDialog({
-								filters: [
-									{ name: 'PNG', extensions: ['png'] },
-									{ name: 'JPEG', extensions: ['jpg', 'jpeg'] },
-									{ name: 'GIF', extensions: ['gif'] },
-								],
-							});
-							await utils.previews(previews, userDataPath, temp);
-							await utils.copy(temp, filePath);
-							temp = null;
-						}
-					},
-				},
-				{
-					role: 'Exit',
-					accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
-					click: async () => {
-						mainWindow.close();
-					},
-				},
-			],
-		}),
-	);
-	Menu.setApplicationMenu(menu);
+	addMenu(mainWindow, temporary, previews);
 	autoUpdate(mainWindow);
-	ipc(mainWindow, temp);
+	ipc(mainWindow, temporary, previews);
 });
 
 app.on('window-all-closed', () => {

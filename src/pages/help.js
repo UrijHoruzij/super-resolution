@@ -14,7 +14,7 @@ const Help = () => {
 					{
 						id: 'file-item-1',
 						name: 'Главная',
-						shortcut: 'CTRL+S',
+						shortcut: 'CTRL+M',
 						onClick: () => router.push('/'),
 					},
 				],

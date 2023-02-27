@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/UrijHoruzij/super-resolution/compare/v2.0.0...v2.1.0) (2023-02-22)
+
+
+### Features
+
+* refactor upscayl script ([7619702](https://github.com/UrijHoruzij/super-resolution/commit/7619702f2f817ae5088bd7446af09b142111e22c))
+
 # [2.0.0](https://github.com/UrijHoruzij/super-resolution/compare/v1.6.0...v2.0.0) (2023-02-21)
 
 

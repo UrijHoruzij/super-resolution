@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/UrijHoruzij/super-resolution/compare/v2.1.0...v2.2.0) (2023-02-27)
+
+
+### Features
+
+* optimization menu, add store temporary ([6b64095](https://github.com/UrijHoruzij/super-resolution/commit/6b64095588547f289f432cb66c9578bfda0ebddd))
+
 # [2.1.0](https://github.com/UrijHoruzij/super-resolution/compare/v2.0.0...v2.1.0) (2023-02-22)
 
 
